@@ -151,7 +151,7 @@ generateBridgeData = function( xrange, bamFiles, colours=NULL, names=NULL ) {
   if( is.null( names ) ) names = paste( "Track", seq_along( bamFiles ) )
   if( is.null( colours ) ) colours = rainbow( length( bamFiles ), v=0.5, s=0.5 )
   apply( cbind( bamFiles, colours, names ), 1, function( r ) {
-    list( name=r$names, col=r$colours, rle=convertBamToRle( r$bamFiles, as.character( seqnames( xrange ) ), start( xrange ), end( xrange ) ) )
+    list( name=r[ 'names' ], col=r['colours'], rle=convertBamToRle( r['bamFiles'], as.character( seqnames( xrange ) ), start( xrange ), end( xrange ) ) )
   } )
 }
 
