@@ -1,5 +1,5 @@
 ngsTracePlotter = function( rle.data, start, end, ylim, trace.label.properties=list(),
-                            smoothing.function=function( rle, ... ) { runmean( rle, k=1001, endrule='constant' ) }, 
+                            smoothing.function=function( rle, ... ) { if( length( rle ) == 0 ) 0 else runmean( rle, k=1001, endrule='constant' ) }, 
                             trace.clip='inherit', trace.draw.scale=FALSE, trace.bor='transparent', trace.pad=c(0,0), ... ) {
   .y = 0
   local.draw = function( start, rle, col, alpha.mod=1.0, mult=1, local.draw.outline=T, local.draw.fill=T, ... ) {
@@ -102,10 +102,10 @@ ngsTraceScale = function( vector.of.xbams.and.ybams ) {
         0
       }
       else if( !is.list( d$rle ) ) { # Just a single strand
-        min( runValue( d$rle ) )
+        if( length( d$rle ) == 0 ) 0 else min( runValue( d$rle ) )
       }
       else { # Two strands '+' and '-'
-        -max( runValue( d$rle$'-' ) )
+        if( length( d$rle$'-' ) == 0 ) 0 else -max( runValue( d$rle$'-' ) )
       }
      } ) ) ),
    max( unlist( lapply( vector.of.xbams.and.ybams, function( d ) {
@@ -113,10 +113,10 @@ ngsTraceScale = function( vector.of.xbams.and.ybams ) {
         0
       }
       else if( !is.list( d$rle ) ) { # Just a single strand
-        max( runValue( d$rle ) )
+        if( length( d$rle ) == 0 ) 0 else max( runValue( d$rle ) )
       }
       else { # Two strands '+' and '-'
-        max( runValue( d$rle$'+' ) )
+        if( length( d$rle$'+' ) == 0 ) 0 else max( runValue( d$rle$'+' ) )
       }
    } ) ) ) )
 }
