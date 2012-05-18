@@ -1,15 +1,5 @@
 .fetch.genes.for.range = function( pos, drop.partial.genes=FALSE, ... ) {
-  if( class( pos ) == 'RangedData' ) {
-    .fn = space
-  }
-  else if( class( pos ) == 'GRanges' ) {
-    .fn = seqnames
-  }
-  else {
-    stop( 'Expected RangedData or GRanges for .fetch.genes.in.range' )
-  }
-  .genes = rbind( geneInRange( as.character( .fn( pos ) ), start( pos ), end( pos ), 1, as.vector='data.frame' ),
-                  geneInRange( as.character( .fn( pos ) ), start( pos ), end( pos ), -1, as.vector='data.frame' ) )
+  .genes = geneInRange( pos, as.vector='data.frame' )
   if( !is.null( .genes ) ) {
     .genes = .genes[with(.genes, order( start )),]
     if( drop.partial.genes ) {
