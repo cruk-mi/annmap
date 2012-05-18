@@ -231,7 +231,7 @@ ngsBridgePlot = function( xrange, data=list(),
         }
       }
       else {
-        xrange$strand
+        if( xrange$strand == 0 ) NULL else xrange$strand
       }
       .filtered.gene.names = if( is.null( .strand ) ) .genes$stable_id else .genes[ .genes$strand==.strand, ]$stable_id
       if( !is.null( exon.depth.plot ) ) {
@@ -265,7 +265,12 @@ ngsBridgePlot = function( xrange, data=list(),
         if( is.list( element$rle ) ) {
           # Single strand data... Just return it as is
           if( trace.match.strand == TRUE ) {
-            strand = as.character( strand( xrange ) )
+            strand = if( class( xrange ) == 'GRanges' ) {
+              as.character( strand( xrange ) )
+            }
+            else {
+              if( xrange$strand == 0 ) '*' else if( xrange$strand > 0 ) '+' else '-'
+            }
             if( strand != '*' ) {
               element$rle = element$rle[[ strand ]]
             }
