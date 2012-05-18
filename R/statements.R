@@ -129,8 +129,9 @@ setMethod(  'probesetInRange', signature( x='character' ),  function( x, start, 
                .range.call( x, start, end, -1, 'probeset', .xmap.types$probeset, as.vector=as.vector ) )
       }
       else {
-        c( .range.call( x, start, end,  1, 'probeset', .xmap.types$probeset, as.vector=as.vector ),
-           .range.call( x, start, end, -1, 'probeset', .xmap.types$probeset, as.vector=as.vector ) )
+        .fwd = .range.call( x, start, end,  1, 'probeset', .xmap.types$probeset, as.vector=as.vector )
+        .rev = .range.call( x, start, end, -1, 'probeset', .xmap.types$probeset, as.vector=as.vector )
+        if( is.null( .fwd ) ) .rev else if( is.null( .rev ) ) .fwd else c( .fwd, .rev )
       }
     }
     else {
@@ -356,8 +357,9 @@ setMethod(  'probeInRange', signature( x='character' ),  function( x, start, end
                .range.call( x, start, end, -1, 'probe', .xmap.types$probe, as.vector=as.vector ) )
       }
       else {
-        c( .range.call( x, start, end,  1, 'probe', .xmap.types$probe, as.vector=as.vector ),
-           .range.call( x, start, end, -1, 'probe', .xmap.types$probe, as.vector=as.vector ) )
+        .fwd = .range.call( x, start, end,  1, 'probe', .xmap.types$probe, as.vector=as.vector )
+        .rev = .range.call( x, start, end, -1, 'probe', .xmap.types$probe, as.vector=as.vector )
+        if( is.null( .fwd ) ) .rev else if( is.null( .rev ) ) .fwd else c( .fwd, .rev )
       }
     }
     else {
@@ -427,8 +429,9 @@ setMethod(  'proteinInRange', signature( x='character' ),  function( x, start, e
                .range.call( x, start, end, -1, 'protein', .xmap.types$protein, as.vector=as.vector ) )
       }
       else {
-        c( .range.call( x, start, end,  1, 'protein', .xmap.types$protein, as.vector=as.vector ),
-           .range.call( x, start, end, -1, 'protein', .xmap.types$protein, as.vector=as.vector ) )
+        .fwd = .range.call( x, start, end,  1, 'protein', .xmap.types$protein, as.vector=as.vector )
+        .rev = .range.call( x, start, end, -1, 'protein', .xmap.types$protein, as.vector=as.vector )
+        if( is.null( .fwd ) ) .rev else if( is.null( .rev ) ) .fwd else c( .fwd, .rev )
       }
     }
     else {
@@ -516,8 +519,9 @@ setMethod(  'domainInRange', signature( x='character' ),  function( x, start, en
                .range.call( x, start, end, -1, 'domain', .xmap.types$domain, as.vector=as.vector ) )
       }
       else {
-        c( .range.call( x, start, end,  1, 'domain', .xmap.types$domain, as.vector=as.vector ),
-           .range.call( x, start, end, -1, 'domain', .xmap.types$domain, as.vector=as.vector ) )
+        .fwd = .range.call( x, start, end,  1, 'domain', .xmap.types$domain, as.vector=as.vector )
+        .rev = .range.call( x, start, end, -1, 'domain', .xmap.types$domain, as.vector=as.vector )
+        if( is.null( .fwd ) ) .rev else if( is.null( .rev ) ) .fwd else c( .fwd, .rev )
       }
     }
     else {
@@ -618,8 +622,9 @@ setMethod(  'geneInRange', signature( x='character' ),  function( x, start, end,
                .range.call( x, start, end, -1, 'gene', .xmap.types$gene, as.vector=as.vector ) )
       }
       else {
-        c( .range.call( x, start, end,  1, 'gene', .xmap.types$gene, as.vector=as.vector ),
-           .range.call( x, start, end, -1, 'gene', .xmap.types$gene, as.vector=as.vector ) )
+        .fwd = .range.call( x, start, end,  1, 'gene', .xmap.types$gene, as.vector=as.vector )
+        .rev = .range.call( x, start, end, -1, 'gene', .xmap.types$gene, as.vector=as.vector )
+        if( is.null( .fwd ) ) .rev else if( is.null( .rev ) ) .fwd else c( .fwd, .rev )
       }
     }
     else {
@@ -736,8 +741,9 @@ setMethod(  'transcriptInRange', signature( x='character' ),  function( x, start
                .range.call( x, start, end, -1, 'transcript', .xmap.types$transcript, as.vector=as.vector ) )
       }
       else {
-        c( .range.call( x, start, end,  1, 'transcript', .xmap.types$transcript, as.vector=as.vector ),
-           .range.call( x, start, end, -1, 'transcript', .xmap.types$transcript, as.vector=as.vector ) )
+        .fwd = .range.call( x, start, end,  1, 'transcript', .xmap.types$transcript, as.vector=as.vector )
+        .rev = .range.call( x, start, end, -1, 'transcript', .xmap.types$transcript, as.vector=as.vector )
+        if( is.null( .fwd ) ) .rev else if( is.null( .rev ) ) .fwd else c( .fwd, .rev )
       }
     }
     else {
@@ -863,8 +869,9 @@ setMethod(  'exonInRange', signature( x='character' ),  function( x, start, end,
                .range.call( x, start, end, -1, 'exon', .xmap.types$exon, as.vector=as.vector ) )
       }
       else {
-        c( .range.call( x, start, end,  1, 'exon', .xmap.types$exon, as.vector=as.vector ),
-           .range.call( x, start, end, -1, 'exon', .xmap.types$exon, as.vector=as.vector ) )
+        .fwd = .range.call( x, start, end,  1, 'exon', .xmap.types$exon, as.vector=as.vector )
+        .rev = .range.call( x, start, end, -1, 'exon', .xmap.types$exon, as.vector=as.vector )
+        if( is.null( .fwd ) ) .rev else if( is.null( .rev ) ) .fwd else c( .fwd, .rev )
       }
     }
     else {
@@ -943,8 +950,9 @@ setMethod(  'estGeneInRange', signature( x='character' ),  function( x, start, e
                .range.call( x, start, end, -1, 'est_gene', .xmap.types$est_gene, as.vector=as.vector ) )
       }
       else {
-        c( .range.call( x, start, end,  1, 'est_gene', .xmap.types$est_gene, as.vector=as.vector ),
-           .range.call( x, start, end, -1, 'est_gene', .xmap.types$est_gene, as.vector=as.vector ) )
+        .fwd = .range.call( x, start, end,  1, 'est_gene', .xmap.types$est_gene, as.vector=as.vector )
+        .rev = .range.call( x, start, end, -1, 'est_gene', .xmap.types$est_gene, as.vector=as.vector )
+        if( is.null( .fwd ) ) .rev else if( is.null( .rev ) ) .fwd else c( .fwd, .rev )
       }
     }
     else {
@@ -1023,8 +1031,9 @@ setMethod(  'estTranscriptInRange', signature( x='character' ),  function( x, st
                .range.call( x, start, end, -1, 'est_transcript', .xmap.types$est_transcript, as.vector=as.vector ) )
       }
       else {
-        c( .range.call( x, start, end,  1, 'est_transcript', .xmap.types$est_transcript, as.vector=as.vector ),
-           .range.call( x, start, end, -1, 'est_transcript', .xmap.types$est_transcript, as.vector=as.vector ) )
+        .fwd = .range.call( x, start, end,  1, 'est_transcript', .xmap.types$est_transcript, as.vector=as.vector )
+        .rev = .range.call( x, start, end, -1, 'est_transcript', .xmap.types$est_transcript, as.vector=as.vector )
+        if( is.null( .fwd ) ) .rev else if( is.null( .rev ) ) .fwd else c( .fwd, .rev )
       }
     }
     else {
@@ -1103,8 +1112,9 @@ setMethod(  'estExonInRange', signature( x='character' ),  function( x, start, e
                .range.call( x, start, end, -1, 'est_exon', .xmap.types$est_exon, as.vector=as.vector ) )
       }
       else {
-        c( .range.call( x, start, end,  1, 'est_exon', .xmap.types$est_exon, as.vector=as.vector ),
-           .range.call( x, start, end, -1, 'est_exon', .xmap.types$est_exon, as.vector=as.vector ) )
+        .fwd = .range.call( x, start, end,  1, 'est_exon', .xmap.types$est_exon, as.vector=as.vector )
+        .rev = .range.call( x, start, end, -1, 'est_exon', .xmap.types$est_exon, as.vector=as.vector )
+        if( is.null( .fwd ) ) .rev else if( is.null( .rev ) ) .fwd else c( .fwd, .rev )
       }
     }
     else {
@@ -1183,8 +1193,9 @@ setMethod(  'predictionTranscriptInRange', signature( x='character' ),  function
                .range.call( x, start, end, -1, 'prediction_transcript', .xmap.types$prediction_transcript, as.vector=as.vector ) )
       }
       else {
-        c( .range.call( x, start, end,  1, 'prediction_transcript', .xmap.types$prediction_transcript, as.vector=as.vector ),
-           .range.call( x, start, end, -1, 'prediction_transcript', .xmap.types$prediction_transcript, as.vector=as.vector ) )
+        .fwd = .range.call( x, start, end,  1, 'prediction_transcript', .xmap.types$prediction_transcript, as.vector=as.vector )
+        .rev = .range.call( x, start, end, -1, 'prediction_transcript', .xmap.types$prediction_transcript, as.vector=as.vector )
+        if( is.null( .fwd ) ) .rev else if( is.null( .rev ) ) .fwd else c( .fwd, .rev )
       }
     }
     else {
