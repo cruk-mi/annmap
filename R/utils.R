@@ -264,20 +264,25 @@ annmapRangeApply = function( x, f, filter=c( chr="space", start="start", end="en
   } )
   # Strip nulls
   r = r[ !sapply( r, is.null ) ]
-  clzz = unique( lapply( r, class ) )
-  if( length( clzz ) == 2 && is.list( r ) ) {
-    r = do.call( c, r )
-    clzz = unique( lapply( r, class ) )
+  if( length( r ) == 0 ) {
+    r = NULL
   }
-  if( length( clzz ) == 1 ) {
-    if( is.vector( r[[1]] ) ) {
+  else {
+    clzz = unique( lapply( r, class ) )
+    if( length( clzz ) == 2 && is.list( r ) ) {
       r = do.call( c, r )
+      clzz = unique( lapply( r, class ) )
     }
-    else if( clzz == 'GRanges' ) {
-      r = suppressWarnings( do.call( c, r ) ) # Need to supress, as we're probably looking at multipl chrs per result
-    }
-    else {
-      r = do.call( rbind, r )
+    if( length( clzz ) == 1 ) {
+      if( is.vector( r[[1]] ) ) {
+        r = do.call( c, r )
+      }
+      else if( clzz == 'GRanges' ) {
+        r = suppressWarnings( do.call( c, r ) ) # Need to supress, as we're probably looking at multipl chrs per result
+      }
+      else {
+        r = do.call( rbind, r )
+      }
     }
   }
   r

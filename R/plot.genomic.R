@@ -1,15 +1,12 @@
 .fetch.genes.for.range = function( pos, drop.partial.genes=FALSE, ... ) {
   .genes = geneInRange( pos, as.vector='data.frame' )
-  if( !is.null( .genes ) && length( .genes ) > 0 ) {
+  if( !is.null( .genes ) ) {
     .genes = .genes[with(.genes, order( start )),]
     if( drop.partial.genes ) {
       .genes = .drop.partial.genes( .genes, start( pos ), end( pos ) )
     }
-    .genes
   }
-  else {
-    NULL
-  }
+  .genes
 }
 
 .drop.partial.genes = function( genes, start, end ) {
