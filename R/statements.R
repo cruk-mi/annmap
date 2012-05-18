@@ -672,7 +672,7 @@ geneToExonProbeset = function( ids, as.vector=FALSE, probes.min=4 ) {
   .params$ids = ids
   r = .process( 'to', 'gene', .params, 'exon_probeset' )
   r[r[,'num_probes'] >= probes.min, , drop = FALSE]
- .coerce( r, .xmap.types$probeset, as.vector )
+ .coerce( r, 'probeset', as.vector )
 }
 .xmap.queries$gene.to.probeset = "CALL gene_to_probeset( '${array}', '${ids}' )"
 geneToProbeset = function( ids, as.vector=FALSE ) {
