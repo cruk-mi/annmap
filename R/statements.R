@@ -123,9 +123,15 @@ setMethod(  'probesetInRange', signature( x='character' ),  function( x, start, 
     probesetInRange( data.frame( chr=x, start=start, end=end, strand=strand ), as.vector=as.vector )
   }
   else {
-    if( is.na( strand ) ) {
-      c( .range.call( x, start, end,  1, 'probeset', .xmap.types$probeset, as.vector=as.vector ),
-         .range.call( x, start, end, -1, 'probeset', .xmap.types$probeset, as.vector=as.vector ) )
+    if( is.na( strand ) || strand == 0 ) {
+      if( as.vector == 'data.frame' || ( as.vector == FALSE && !.usegranges() ) ) {
+        rbind( .range.call( x, start, end,  1, 'probeset', .xmap.types$probeset, as.vector=as.vector ),
+               .range.call( x, start, end, -1, 'probeset', .xmap.types$probeset, as.vector=as.vector ) )
+      }
+      else {
+        c( .range.call( x, start, end,  1, 'probeset', .xmap.types$probeset, as.vector=as.vector ),
+           .range.call( x, start, end, -1, 'probeset', .xmap.types$probeset, as.vector=as.vector ) )
+      }
     }
     else {
       .range.call( x, start, end, strand, 'probeset', .xmap.types$probeset, as.vector=as.vector )
@@ -344,9 +350,15 @@ setMethod(  'probeInRange', signature( x='character' ),  function( x, start, end
     probeInRange( data.frame( chr=x, start=start, end=end, strand=strand ), as.vector=as.vector )
   }
   else {
-    if( is.na( strand ) ) {
-      c( .range.call( x, start, end,  1, 'probe', .xmap.types$probe, as.vector=as.vector ),
-         .range.call( x, start, end, -1, 'probe', .xmap.types$probe, as.vector=as.vector ) )
+    if( is.na( strand ) || strand == 0 ) {
+      if( as.vector == 'data.frame' || ( as.vector == FALSE && !.usegranges() ) ) {
+        rbind( .range.call( x, start, end,  1, 'probe', .xmap.types$probe, as.vector=as.vector ),
+               .range.call( x, start, end, -1, 'probe', .xmap.types$probe, as.vector=as.vector ) )
+      }
+      else {
+        c( .range.call( x, start, end,  1, 'probe', .xmap.types$probe, as.vector=as.vector ),
+           .range.call( x, start, end, -1, 'probe', .xmap.types$probe, as.vector=as.vector ) )
+      }
     }
     else {
       .range.call( x, start, end, strand, 'probe', .xmap.types$probe, as.vector=as.vector )
@@ -409,9 +421,15 @@ setMethod(  'proteinInRange', signature( x='character' ),  function( x, start, e
     proteinInRange( data.frame( chr=x, start=start, end=end, strand=strand ), as.vector=as.vector )
   }
   else {
-    if( is.na( strand ) ) {
-      c( .range.call( x, start, end,  1, 'protein', .xmap.types$protein, as.vector=as.vector ),
-         .range.call( x, start, end, -1, 'protein', .xmap.types$protein, as.vector=as.vector ) )
+    if( is.na( strand ) || strand == 0 ) {
+      if( as.vector == 'data.frame' || ( as.vector == FALSE && !.usegranges() ) ) {
+        rbind( .range.call( x, start, end,  1, 'protein', .xmap.types$protein, as.vector=as.vector ),
+               .range.call( x, start, end, -1, 'protein', .xmap.types$protein, as.vector=as.vector ) )
+      }
+      else {
+        c( .range.call( x, start, end,  1, 'protein', .xmap.types$protein, as.vector=as.vector ),
+           .range.call( x, start, end, -1, 'protein', .xmap.types$protein, as.vector=as.vector ) )
+      }
     }
     else {
       .range.call( x, start, end, strand, 'protein', .xmap.types$protein, as.vector=as.vector )
@@ -492,9 +510,15 @@ setMethod(  'domainInRange', signature( x='character' ),  function( x, start, en
     domainInRange( data.frame( chr=x, start=start, end=end, strand=strand ), as.vector=as.vector )
   }
   else {
-    if( is.na( strand ) ) {
-      c( .range.call( x, start, end,  1, 'domain', .xmap.types$domain, as.vector=as.vector ),
-         .range.call( x, start, end, -1, 'domain', .xmap.types$domain, as.vector=as.vector ) )
+    if( is.na( strand ) || strand == 0 ) {
+      if( as.vector == 'data.frame' || ( as.vector == FALSE && !.usegranges() ) ) {
+        rbind( .range.call( x, start, end,  1, 'domain', .xmap.types$domain, as.vector=as.vector ),
+               .range.call( x, start, end, -1, 'domain', .xmap.types$domain, as.vector=as.vector ) )
+      }
+      else {
+        c( .range.call( x, start, end,  1, 'domain', .xmap.types$domain, as.vector=as.vector ),
+           .range.call( x, start, end, -1, 'domain', .xmap.types$domain, as.vector=as.vector ) )
+      }
     }
     else {
       .range.call( x, start, end, strand, 'domain', .xmap.types$domain, as.vector=as.vector )
@@ -588,9 +612,15 @@ setMethod(  'geneInRange', signature( x='character' ),  function( x, start, end,
     geneInRange( data.frame( chr=x, start=start, end=end, strand=strand ), as.vector=as.vector )
   }
   else {
-    if( is.na( strand ) ) {
-      c( .range.call( x, start, end,  1, 'gene', .xmap.types$gene, as.vector=as.vector ),
-         .range.call( x, start, end, -1, 'gene', .xmap.types$gene, as.vector=as.vector ) )
+    if( is.na( strand ) || strand == 0 ) {
+      if( as.vector == 'data.frame' || ( as.vector == FALSE && !.usegranges() ) ) {
+        rbind( .range.call( x, start, end,  1, 'gene', .xmap.types$gene, as.vector=as.vector ),
+               .range.call( x, start, end, -1, 'gene', .xmap.types$gene, as.vector=as.vector ) )
+      }
+      else {
+        c( .range.call( x, start, end,  1, 'gene', .xmap.types$gene, as.vector=as.vector ),
+           .range.call( x, start, end, -1, 'gene', .xmap.types$gene, as.vector=as.vector ) )
+      }
     }
     else {
       .range.call( x, start, end, strand, 'gene', .xmap.types$gene, as.vector=as.vector )
@@ -700,9 +730,15 @@ setMethod(  'transcriptInRange', signature( x='character' ),  function( x, start
     transcriptInRange( data.frame( chr=x, start=start, end=end, strand=strand ), as.vector=as.vector )
   }
   else {
-    if( is.na( strand ) ) {
-      c( .range.call( x, start, end,  1, 'transcript', .xmap.types$transcript, as.vector=as.vector ),
-         .range.call( x, start, end, -1, 'transcript', .xmap.types$transcript, as.vector=as.vector ) )
+    if( is.na( strand ) || strand == 0 ) {
+      if( as.vector == 'data.frame' || ( as.vector == FALSE && !.usegranges() ) ) {
+        rbind( .range.call( x, start, end,  1, 'transcript', .xmap.types$transcript, as.vector=as.vector ),
+               .range.call( x, start, end, -1, 'transcript', .xmap.types$transcript, as.vector=as.vector ) )
+      }
+      else {
+        c( .range.call( x, start, end,  1, 'transcript', .xmap.types$transcript, as.vector=as.vector ),
+           .range.call( x, start, end, -1, 'transcript', .xmap.types$transcript, as.vector=as.vector ) )
+      }
     }
     else {
       .range.call( x, start, end, strand, 'transcript', .xmap.types$transcript, as.vector=as.vector )
@@ -821,9 +857,15 @@ setMethod(  'exonInRange', signature( x='character' ),  function( x, start, end,
     exonInRange( data.frame( chr=x, start=start, end=end, strand=strand ), as.vector=as.vector )
   }
   else {
-    if( is.na( strand ) ) {
-      c( .range.call( x, start, end,  1, 'exon', .xmap.types$exon, as.vector=as.vector ),
-         .range.call( x, start, end, -1, 'exon', .xmap.types$exon, as.vector=as.vector ) )
+    if( is.na( strand ) || strand == 0 ) {
+      if( as.vector == 'data.frame' || ( as.vector == FALSE && !.usegranges() ) ) {
+        rbind( .range.call( x, start, end,  1, 'exon', .xmap.types$exon, as.vector=as.vector ),
+               .range.call( x, start, end, -1, 'exon', .xmap.types$exon, as.vector=as.vector ) )
+      }
+      else {
+        c( .range.call( x, start, end,  1, 'exon', .xmap.types$exon, as.vector=as.vector ),
+           .range.call( x, start, end, -1, 'exon', .xmap.types$exon, as.vector=as.vector ) )
+      }
     }
     else {
       .range.call( x, start, end, strand, 'exon', .xmap.types$exon, as.vector=as.vector )
@@ -895,9 +937,15 @@ setMethod(  'estGeneInRange', signature( x='character' ),  function( x, start, e
     estGeneInRange( data.frame( chr=x, start=start, end=end, strand=strand ), as.vector=as.vector )
   }
   else {
-    if( is.na( strand ) ) {
-      c( .range.call( x, start, end,  1, 'est_gene', .xmap.types$est_gene, as.vector=as.vector ),
-         .range.call( x, start, end, -1, 'est_gene', .xmap.types$est_gene, as.vector=as.vector ) )
+    if( is.na( strand ) || strand == 0 ) {
+      if( as.vector == 'data.frame' || ( as.vector == FALSE && !.usegranges() ) ) {
+        rbind( .range.call( x, start, end,  1, 'est_gene', .xmap.types$est_gene, as.vector=as.vector ),
+               .range.call( x, start, end, -1, 'est_gene', .xmap.types$est_gene, as.vector=as.vector ) )
+      }
+      else {
+        c( .range.call( x, start, end,  1, 'est_gene', .xmap.types$est_gene, as.vector=as.vector ),
+           .range.call( x, start, end, -1, 'est_gene', .xmap.types$est_gene, as.vector=as.vector ) )
+      }
     }
     else {
       .range.call( x, start, end, strand, 'est_gene', .xmap.types$est_gene, as.vector=as.vector )
@@ -969,9 +1017,15 @@ setMethod(  'estTranscriptInRange', signature( x='character' ),  function( x, st
     estTranscriptInRange( data.frame( chr=x, start=start, end=end, strand=strand ), as.vector=as.vector )
   }
   else {
-    if( is.na( strand ) ) {
-      c( .range.call( x, start, end,  1, 'est_transcript', .xmap.types$est_transcript, as.vector=as.vector ),
-         .range.call( x, start, end, -1, 'est_transcript', .xmap.types$est_transcript, as.vector=as.vector ) )
+    if( is.na( strand ) || strand == 0 ) {
+      if( as.vector == 'data.frame' || ( as.vector == FALSE && !.usegranges() ) ) {
+        rbind( .range.call( x, start, end,  1, 'est_transcript', .xmap.types$est_transcript, as.vector=as.vector ),
+               .range.call( x, start, end, -1, 'est_transcript', .xmap.types$est_transcript, as.vector=as.vector ) )
+      }
+      else {
+        c( .range.call( x, start, end,  1, 'est_transcript', .xmap.types$est_transcript, as.vector=as.vector ),
+           .range.call( x, start, end, -1, 'est_transcript', .xmap.types$est_transcript, as.vector=as.vector ) )
+      }
     }
     else {
       .range.call( x, start, end, strand, 'est_transcript', .xmap.types$est_transcript, as.vector=as.vector )
@@ -1043,9 +1097,15 @@ setMethod(  'estExonInRange', signature( x='character' ),  function( x, start, e
     estExonInRange( data.frame( chr=x, start=start, end=end, strand=strand ), as.vector=as.vector )
   }
   else {
-    if( is.na( strand ) ) {
-      c( .range.call( x, start, end,  1, 'est_exon', .xmap.types$est_exon, as.vector=as.vector ),
-         .range.call( x, start, end, -1, 'est_exon', .xmap.types$est_exon, as.vector=as.vector ) )
+    if( is.na( strand ) || strand == 0 ) {
+      if( as.vector == 'data.frame' || ( as.vector == FALSE && !.usegranges() ) ) {
+        rbind( .range.call( x, start, end,  1, 'est_exon', .xmap.types$est_exon, as.vector=as.vector ),
+               .range.call( x, start, end, -1, 'est_exon', .xmap.types$est_exon, as.vector=as.vector ) )
+      }
+      else {
+        c( .range.call( x, start, end,  1, 'est_exon', .xmap.types$est_exon, as.vector=as.vector ),
+           .range.call( x, start, end, -1, 'est_exon', .xmap.types$est_exon, as.vector=as.vector ) )
+      }
     }
     else {
       .range.call( x, start, end, strand, 'est_exon', .xmap.types$est_exon, as.vector=as.vector )
@@ -1117,9 +1177,15 @@ setMethod(  'predictionTranscriptInRange', signature( x='character' ),  function
     predictionTranscriptInRange( data.frame( chr=x, start=start, end=end, strand=strand ), as.vector=as.vector )
   }
   else {
-    if( is.na( strand ) ) {
-      c( .range.call( x, start, end,  1, 'prediction_transcript', .xmap.types$prediction_transcript, as.vector=as.vector ),
-         .range.call( x, start, end, -1, 'prediction_transcript', .xmap.types$prediction_transcript, as.vector=as.vector ) )
+    if( is.na( strand ) || strand == 0 ) {
+      if( as.vector == 'data.frame' || ( as.vector == FALSE && !.usegranges() ) ) {
+        rbind( .range.call( x, start, end,  1, 'prediction_transcript', .xmap.types$prediction_transcript, as.vector=as.vector ),
+               .range.call( x, start, end, -1, 'prediction_transcript', .xmap.types$prediction_transcript, as.vector=as.vector ) )
+      }
+      else {
+        c( .range.call( x, start, end,  1, 'prediction_transcript', .xmap.types$prediction_transcript, as.vector=as.vector ),
+           .range.call( x, start, end, -1, 'prediction_transcript', .xmap.types$prediction_transcript, as.vector=as.vector ) )
+      }
     }
     else {
       .range.call( x, start, end, strand, 'prediction_transcript', .xmap.types$prediction_transcript, as.vector=as.vector )
