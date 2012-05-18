@@ -266,12 +266,22 @@ genomicPlot = function( xrange,               # An IRanges object representing t
   }
 
   # Build our grid viewport and push it in
-  .lh = c( top=padding.lines,
-           fwd=if( is.null( .strand ) || is.na( .strand ) || ( as.numeric( .strand ) == 1 ) || draw.opposite.strand ) { if( invert.strands ) .genes$rev.height + 2 else .genes$fwd.height + 2 } else 0,
-           scagap=if( draw.scale ) 1.5 else 0,
-           sca=if( draw.scale ) 1 else 0,
-           rev=if( is.null( .strand ) || is.na( .strand ) || ( as.numeric( .strand ) == -1 ) || draw.opposite.strand ) { if( invert.strands ) .genes$fwd.height + 2 else .genes$rev.height + 2 } else 0,
-           bot=padding.lines )
+  .lh = if( !is.null( .genes ) ) {
+    c( top=padding.lines,
+       fwd=if( is.null( .strand ) || is.na( .strand ) || ( as.numeric( .strand ) == 1 ) || draw.opposite.strand ) { if( invert.strands ) .genes$rev.height + 2 else .genes$fwd.height + 2 } else 0,
+       scagap=if( draw.scale ) 1.5 else 0,
+       sca=if( draw.scale ) 1 else 0,
+       rev=if( is.null( .strand ) || is.na( .strand ) || ( as.numeric( .strand ) == -1 ) || draw.opposite.strand ) { if( invert.strands ) .genes$fwd.height + 2 else .genes$rev.height + 2 } else 0,
+       bot=padding.lines )
+  }
+  else {
+    c( top=padding.lines,
+       fwd=if( is.null( .strand ) || is.na( .strand ) || ( as.numeric( .strand ) == 1  ) || draw.opposite.strand ) 1 else 0,
+       scagap=if( draw.scale ) 1.5 else 0,
+       sca=if( draw.scale ) 1 else 0,
+       rev=if( is.null( .strand ) || is.na( .strand ) || ( as.numeric( .strand ) == -1 ) || draw.opposite.strand ) 1 else 0,
+       bot=padding.lines )
+  }
   .lt = c( top=if( padding.lines > 0 ) 'lines' else 'null',
            fwd='null',
            scagap=if( draw.scale ) 'lines' else 'null',
