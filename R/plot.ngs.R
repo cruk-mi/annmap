@@ -143,7 +143,12 @@ convertBamToRle = function( bam.file.name, chr, start, end, chr.name.mapping=fun
   BAM = BAM[ with( BAM, order( start ) ), ]
   sapply( c( '+', '-' ), function( str ) {
     d = BAM[ as.character( BAM[,2] ) == str, ]
-    coverage( as( cbind( d, end=( d$start + d$width - 1 ) ), 'RangedData' ) )[[ chr ]]
+    ret = coverage( as( cbind( d, end=( d$start + d$width - 1 ) ), 'RangedData' ) )[[ chr ]]
+    if( length( ret ) == 0 ) {
+      # Create an Rle object the correct length rather than an empty one
+      ret = Rle( end, 0 )
+    }
+    ret
   }, simplify=F )
 }
 
