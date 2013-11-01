@@ -37,17 +37,35 @@
   invisible( list( host='http://annmap.cruk.manchester.ac.uk', species=species, version=version ) )
 }
 
+.pretty.size = function( x ) {
+    ifelse( x >= 1024^3, paste( round( x/1024^3, 1L ), "Gb"    ),
+    ifelse( x >= 1024^2, paste( round( x/1024^2, 1L ), "Mb"    ),
+    ifelse( x >= 1024  , paste( round( x/1024,   1L ), "Kb"    ),
+                         paste( x,                     "bytes" )
+    )))
+}
+
 .load.and.parse = function( elements ) {
   url = paste( 'http://annmap.cruk.manchester.ac.uk/data/annmapws/', paste( elements, collapse='/' ), '.js', sep='' )
 
   .xmap.internals$debugFn( paste( 'calling', url ) )
 
-  data = suppressWarnings( fromJSON( file=url ) )
+  if( annmapGetParam( 'quiet.webservice' ) == FALSE ) {
+    cat( "Fetching data from webservice...\n" )
+  }
+  json = suppressWarnings( readLines( url ) )
+  if( annmapGetParam( 'quiet.webservice' ) == FALSE ) {
+    cat( paste( "Retrieved data of size ", .pretty.size( nchar( json ) ), ". Parsing...\n", sep='' ) )
+  }
+  data = fromJSON( json )
 
   if( !is.null( data$error ) ) {
     stop( data$error )
   }
 
+  if( annmapGetParam( 'quiet.webservice' ) == FALSE ) {
+    cat( paste( "Generating data.frame\n" ) )
+  }
   if( length( data$items ) == 0 ) {
     return( NULL )
   }
@@ -90,7 +108,13 @@
       elements = c( elements, params$array )
     }
     ret = .load.and.parse( elements )
+    if( annmapGetParam( 'quiet.webservice' ) == FALSE ) {
+      cat( "Saving to cache.\n" )
+    }
     .cache.store( cache.id, ret )
+  }
+  else if( annmapGetParam( 'quiet.webservice' ) == FALSE ) {
+    cat( "Loaded data from cache.\n" )
   }
   ret
 }
