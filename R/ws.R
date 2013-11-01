@@ -70,28 +70,38 @@
     return( NULL )
   }
   else if( is.null( names( data$items ) ) ) { # list from .all query
-    rslt = do.call( 'rbind', lapply( seq_along( data$items ), function( r ) {
-      ret2 = data$items[[ r ]]
-      ret2 = ret2[ !( names( ret2 ) %in% c( '__type', '__id', 'synonyms' ) ) ]
-      ret2[ sapply( ret2, is.null ) ] = NA
-      data.frame( ret2, stringsAsFactors=F )
-    } ) )
+    parse = function( idx ) {
+      ret = data$items[[ idx ]]
+      ret = ret[ !( names( ret ) %in% c( '__type', '__id', 'synonyms' ) ) ]
+      ret[ sapply( ret, is.null ) ] = NA
+      unlist( ret )
+    }
+    rslt = data.frame(
+      do.call( 'rbind',
+        lapply( seq_along( data$items ), parse )
+      ),
+      stringsAsFactors=F )
   }
   else { # Map from other query
-    rslt = do.call( 'rbind', lapply( names( data$items ), function( IN1 ) {
-      ret = do.call( 'rbind', lapply( seq_along( data$items[[ IN1 ]] ), function( idx ) {
-        ret2 = data$items[[ IN1 ]][[ idx ]]
-        ret2$IN1 = IN1
-        ret2 = ret2[ !( names( ret2 ) %in% c( '__type', '__id', 'synonyms' ) ) ]
-        ret2[ sapply( ret2, is.null ) ] = NA
-        data.frame( ret2, stringsAsFactors=F )
-      } ) )
-    } ) )
+    innerMapping = function( idx, IN1 ) {
+      ret = data$items[[ IN1 ]][[ idx ]]
+      ret$IN1 = IN1
+      ret = ret[ !( names( ret ) %in% c( '__type', '__id', 'synonyms' ) ) ]
+      ret[ sapply( ret, is.null ) ] = NA
+      unlist( ret )
+    }
+    outerMapping = function( IN1 ) {
+      do.call( 'rbind', lapply( seq_along( data$items[[ IN1 ]] ), innerMapping, IN1=IN1 ) )
+    }
+    rslt = data.frame(
+      do.call( 'rbind', lapply( names( data$items ), outerMapping ) ),
+      stringsAsFactors=F )
   }
   # type convert values which need it (start, end, strand)
-  if( !is.null( rslt$start ) )  rslt$start  = as.integer( rslt$start )
-  if( !is.null( rslt$end ) )    rslt$end    = as.integer( rslt$end )
-  if( !is.null( rslt$strand ) ) rslt$strand = as.integer( rslt$strand )
+  if( !is.null( rslt$start ) )  rslt$start   = as.integer( rslt$start )
+  if( !is.null( rslt$end ) )    rslt$end     = as.integer( rslt$end )
+  if( !is.null( rslt$strand ) ) rslt$strand  = as.integer( rslt$strand )
+  if( !is.null( rslt$length ) ) rslt$length  = as.integer( rslt$length )
   rslt
 }
 
