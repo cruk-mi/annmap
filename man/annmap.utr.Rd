@@ -1,6 +1,7 @@
 \name{annmapUtr}
 \alias{transcriptToUtrRange}
 \alias{transcriptToCodingRange}
+\alias{transcriptToCodingExon}
 \alias{utrProbesets}
 \alias{codingProbesets}
 \title{
@@ -12,12 +13,14 @@
 \usage{
   transcriptToUtrRange( ids, end=c( "both", "5", "3" ), as.data.frame=FALSE, on.translation.error=stop )
   transcriptToCodingRange( ids, end=c( "both", "5", "3" ), as.data.frame=FALSE, on.translation.error=stop )
+  transcriptToCodingExon( ids, end=c( 'both', '5', '3' ), as.vector=FALSE, on.translation.error=stop )
   utrProbesets( probesets, transcripts, end=c( "both", "5", "3" ), on.translation.error=stop )
   codingProbesets( probesets, transcripts, end=c( "both", "5", "3" ), on.translation.error=stop )
 }
 \arguments{
   \item{ids}{ A vector of Transcript Names, or a RangedData object of Transcripts returned from another annmap call. }
   \item{as.data.frame}{ If \code{FALSE}, data will be converted to a \code{RangedData} object if possible, otherwise a \code{data.frame} }
+  \item{as.vector}{ If \code{TRUE} returns a vector of database identifiers. If \code{FALSE} returns a \code{link{GRanges}} object containing detailed annotation. }
   \item{probesets}{ An optional vector of Probeset Names, or a RangedData object of Probesets returned from another annmap call. }
   \item{transcripts}{ An optional vector of Transcript Names, or a RangedData object of Transcripts returned from another annmap call. }
   \item{end}{ Which end (\code{"both"}, \code{"3"} or \code{"5"}) of the Transcript(s) you are interested in (defaults to \code{both}). }

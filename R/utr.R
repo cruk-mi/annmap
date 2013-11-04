@@ -270,6 +270,35 @@ transcriptToCodingRange = function( ids, end=c( 'both', '5', '3' ), as.data.fram
   }
 }
 
+transcriptToCodingExon = function( ids, end=c( 'both', '5', '3' ), as.vector=FALSE, on.translation.error=stop ) {
+  ranges = transcriptToCodingRange( ids, end, on.translation.error=on.translation.error )
+  exons  = transcriptToExon( ids )
+  
+  rslt = do.call( c, lapply( unique( exons$IN1 ), function( transcript ) {
+    r = ranges[ ranges$IN1 == transcript, ]
+    if( length( r ) == 0 ) {
+      exons[ exons$IN1 == 'false', ]
+    }
+    else {
+      out = restrict( exons[ exons$IN1 == transcript, ], start=start( r ), end=end( r ) )
+    }
+  } ) )
+
+  if( as.vector == 'data.frame' ) {
+    strands = strandAsInteger( rslt )
+    rslt = as.data.frame( rslt )
+    colnames( rslt )[ colnames( rslt ) == "seqnames" ] = "chromosome_name"
+    rslt$width = NULL
+    rslt$strand = strands
+  }
+  else if( as.vector == TRUE ) {
+    names = rslt$IN1
+    rslt = rslt$stable_id
+    names( rslt ) = names
+  }
+  rslt
+}
+
 .probeset.filtering = function( probesets, transcripts, end=c( 'both', '5', '3' ), fn, on.translation.error=stop ) {
   if( missing( probesets ) ) probesets = NULL
   if( missing( transcripts ) ) transcripts = NULL
