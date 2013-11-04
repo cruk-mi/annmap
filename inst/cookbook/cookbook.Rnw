@@ -36,6 +36,8 @@
 
 \tableofcontents
 
+\pagebreak
+
 \section{Introduction}
 
 \code{annmap} is a Bioconductor package that provides annotation data and
@@ -724,6 +726,28 @@ and the 5' end, but not the 3' end.}:
 <<eval=TRUE,echo=TRUE>>=
 transcriptToCodingRange( 'ENST00000297261', end='3' )
 transcriptToUtrRange( 'ENST00000297261', end='3' )
+@
+
+\subsection{Gene and Transcript coding length}
+
+It is possible to get the 'coding length' of a gene by calling:
+
+<<eval=TRUE,echo=TRUE>>=
+nonIntronicGeneLength( symbolToGene( c( 'SHH', 'PTEN' ) ) )
+@
+
+This merges all the exons in each gene (overlapping them where applicable) and returns you a sum of all their widths.
+
+For transcripts, you also have the method:
+
+<<eval=TRUE,echo=TRUE>>=
+nonIntronicTranscriptLength( geneToTranscript( symbolToGene( 'SHH' ) ) )
+@
+
+In which you may also specify if you wish to only look at coding regions by specifying an 'end':
+
+<<eval=TRUE,echo=TRUE>>=
+nonIntronicTranscriptLength( geneToTranscript( symbolToGene( 'SHH' ) ), end='both' )
 @
 
 \pagebreak

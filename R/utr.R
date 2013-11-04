@@ -299,6 +299,20 @@ transcriptToCodingExon = function( ids, end=c( 'both', '5', '3' ), as.vector=FAL
   rslt
 }
 
+.nonIntronicLength = function( exons ) {
+  sum( width( reduce( split( exons, exons$IN1 ) ) ) )
+}
+
+nonIntronicTranscriptLength = function( ids, end=c( 'none', 'both', '5', '3' ), on.translation.error=stop ) {
+  end = match.arg( end )
+  exons = if( end == 'none' ) transcriptToExon( ids ) else transcriptToCodingExon( ids, end=end, on.translation.error=on.translation.error )
+  .nonIntronicLength( exons )
+}
+
+nonIntronicGeneLength = function( ids ) {
+  .nonIntronicLength( geneToExon( ids ) )
+}
+
 .probeset.filtering = function( probesets, transcripts, end=c( 'both', '5', '3' ), fn, on.translation.error=stop ) {
   if( missing( probesets ) ) probesets = NULL
   if( missing( transcripts ) ) transcripts = NULL
