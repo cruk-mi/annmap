@@ -127,6 +127,7 @@ cat( "\\end{figure}")
 
 <<eval=TRUE,echo=FALSE,results=hide>>=
 annmapDisconnect()
+detach( "package:annmap", unload=TRUE )
 @
 
 \pagebreak
@@ -824,7 +825,7 @@ For this test, we have an eSet object stored locally which contains expression d
 for an MCF7/MCF10A dataset around the gene 'tp53'.
 
 <<eval=TRUE,echo=TRUE,keep.source=TRUE>>=
-load( file.path( .path.package('annmap'), 'rdata', 'HuEx-1_0.tp53.expr.RData' ) )
+load( file.path( path.package('annmap'), 'rdata', 'HuEx-1_0.tp53.expr.RData' ) )
 x.rma
 @
 
