@@ -728,6 +728,12 @@ transcriptToCodingRange( 'ENST00000297261', end='3' )
 transcriptToUtrRange( 'ENST00000297261', end='3' )
 @
 
+It is also possible to get just those exons (or parts thereof) that are coding or for the UTR:
+<<eval=TRUE,echo=TRUE>>=
+transcriptToCodingExon( 'ENST00000297261' )
+transcriptToUtrExon( 'ENST00000297261' )
+@
+
 \subsection{Gene and Transcript coding length}
 
 It is possible to get the 'coding length' of a gene by calling:
