@@ -321,6 +321,10 @@ transcriptToCodingExon = function( ids, end=c( 'both', '5', '3' ), as.vector=FAL
     }
   } ) )
 
+  rslt$sequence = NULL
+  if( length( rslt ) == 0 ) {
+    return( NULL )
+  }
   if( as.vector == 'data.frame' ) {
     strands = strandAsInteger( rslt )
     rslt = as.data.frame( rslt )
