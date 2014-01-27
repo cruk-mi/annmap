@@ -226,6 +226,7 @@ transcriptToUtrRange = function( ids, end=c( 'both', '5', '3' ), as.data.frame=F
 }
 
 transcriptToUtrExon = function( ids, end=c( 'both', '5', '3' ), as.vector=FALSE, on.translation.error=stop ) {
+  ids = .get.correct.column( 'transcript', ids )
   if( any( duplicated( ids ) ) ) {
     warning( 'Duplicate ids detected.  Duplicates will be removed.' )
     ids = unique( ids )
@@ -320,6 +321,7 @@ transcriptToCodingRange = function( ids, end=c( 'both', '5', '3' ), as.data.fram
 }
 
 transcriptToCodingExon = function( ids, end=c( 'both', '5', '3' ), as.vector=FALSE, on.translation.error=stop ) {
+  ids = .get.correct.column( 'transcript', ids )
   if( any( duplicated( ids ) ) ) {
     warning( 'Duplicate ids detected.  Duplicates will be removed.' )
     ids = unique( ids )
